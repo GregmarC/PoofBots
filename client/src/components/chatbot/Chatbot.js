@@ -46,30 +46,62 @@ class Chatbot extends Component {
             }
         };
 
-        this.setState({messages: [...this.state.messages, says]})
-        const res = await axios.post('/api/df_text_query', {text: text, userID: cookies.get('userID')});
-
-        for (let msg of res.data.fulfillmentMessages) {
-            console.log(JSON.stringify(msg));
-            let says = {
-                speaks: 'bot',
-                msg: msg
-            } 
-            this.setState({messages: [...this.state.messages, says]});
-        }
-    }
-
-    async df_event_query(event){
-        const res = await axios.post('/api/df_event_query', {event: event, userID: cookies.get('userID')});
-
-        for (let msg of res.data.fulfillmentMessages) {
-            let says = {
-                speaks: 'bot',
-                msg: msg
+        this.setState({messages: [...this.state.messages, says]});
+        try {
+            const res = await axios.post('/api/df_text_query',  {text, userID: cookies.get('userID')});
+            for (let msg of res.data.fulfillmentMessages) {
+                says = {
+                    speaks: 'bot',
+                    msg: msg
+                }
+                this.setState({ messages: [...this.state.messages, says]});
             }
-            this.setState({messages: [...this.state.messages, says]});
+        } catch (e) {
+            says = {
+                speaks: 'bot',
+                msg: {
+                    text : {
+                        text: "I'm having troubles. I need to terminate. will be back later"
+                    }
+                }
+            }
+            this.setState({ messages: [...this.state.messages, says]});
+            let that = this;
+            setTimeout(function(){
+                that.setState({ showBot: false})
+            }, 2000);
         }
-    }
+    };
+
+    
+    async df_event_query(event) {
+        try {
+            const res = await axios.post('/api/df_event_query',  {event, userID: cookies.get('userID')});
+            for (let msg of res.data.fulfillmentMessages) {
+                let says = {
+                    speaks: 'bot',
+                    msg: msg
+                }
+                this.setState({ messages: [...this.state.messages, says]});
+            }
+        }
+        catch (e) {
+            let says = {
+                speaks: 'bot',
+                msg: {
+                    text : {
+                        text: "I'm having troubles. I need to terminate. will be back later"
+                    }
+                }
+            }
+            this.setState({ messages: [...this.state.messages, says]});
+            let that = this;
+            setTimeout(function(){
+                that.setState({ showBot: false})
+            }, 2000);
+        }
+    };
+
 
     resolveAfterXSeconds(x) {
         return new Promise(resolve => {
@@ -194,7 +226,7 @@ class Chatbot extends Component {
     render() {
         if (this.state.showBot) {
             return (
-                <div style={{ height: 500, width: 400, position: 'absolute', bottom: 0, right: 0, border: '1px solid lightgrey' }}>
+                <div style={{ height: 500, maxHeight: 470, width: 400, position: 'absolute', bottom: 0, right: 0, border: '1px solid lightgrey' }}>
                     <nav>
                         <div className="nav-wrapper">
                             <a className="brand-logo">ChatBot</a>
