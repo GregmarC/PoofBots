@@ -8,6 +8,7 @@ mongoose.connect(config.mongoURI, { useNewUrlParser: true });
 
 require('./models/Registration');
 require('./models/Demand');
+require('./models/Coupons');
 
 app.use(bodyParser.json());
 
