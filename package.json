@@ -1,7 +1,7 @@
 {
   "name": "reactbot",
   "version": "1.0.0",
-  "description": "React bot for webpage",
+  "description": "React bot",
   "main": "index.js",
   "engines": {
     "node": "13.6.0",
@@ -14,19 +14,15 @@
     "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
-  "author": "Greg Cruz",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "actions-on-google": "^2.12.0",
     "body-parser": "^1.19.0",
-    "create-react-app": "^3.4.0",
-    "dialogflow": "^1.1.1",
+    "dialogflow": "^1.2.0",
     "dialogflow-fulfillment": "^0.6.1",
     "express": "^4.17.1",
     "mongoose": "^5.9.2",
-    "node": "^13.6.0",
-    "npm": "^6.13.4",
-    "react-router-dom": "^5.1.2",
     "structjson": "^1.0.1"
   },
   "devDependencies": {
