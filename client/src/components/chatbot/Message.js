@@ -12,7 +12,7 @@ const Message = (props) => {
                         <a href="/" className="btn-floating btn-large waves-effect waves-light red">{props.speaks}</a>
                     </div>
                     }
-                    <div className="col s10">
+                    <div className="col s10" style={{paddingRight: "25px"}}>
                         <span className="black-text">
                             {props.text}
                         </span>
