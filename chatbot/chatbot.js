@@ -4,6 +4,8 @@ const config = require('../config/keys');
 const structjson = require('structjson');
 const mongoose = require('mongoose');
 
+const googleAuth = require('google-oauth-jwt');
+
 //Code from original version on Udemy, obsolete: 
 //const sessionClient = new dialogflow.SessionsClient();   - variable defined below
 //const sessionPath = sessionClient.sessionPath(config.googleProjectID, config.dialogFlowSessionID);
@@ -27,6 +29,23 @@ const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 const Registration = mongoose.model('registration');
 
 module.exports = {
+
+    getToken: async function(){
+        return new Promise((resolve) => {
+            googleAuth.authenticate({
+                email: config.googleClientEmail,
+                key: config.googlePrivateKey,
+                scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+            },
+            (err, token) => {
+                resolve(token);
+            },
+            );
+        });
+    },
+
+
+
     textQuery: async function(text, userID, parameters = {}) {
         let sessionPath = sessionClient.sessionPath(projectId, sessionId + userID);
         let self = module.exports;
