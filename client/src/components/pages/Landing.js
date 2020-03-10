@@ -1,11 +1,15 @@
 import React from 'react';
+import robot from '../../../src/images/robot.png';
+import '../../App.css';
 
 const Landing = () => 
     (
-        <div style={{ textAlign: 'center'}}>
-            <h1>Selling you great stuff!</h1>
-            with the help of the chatbot
+        <div className="row">
+                <div className="col s6 offset-s3 l2 offset-l5" style={{paddingTop: "20px"}}>
+                    <img src={robot} alt="bot" className="circle responsive-img robotHomePic"/>
+                </div>  
         </div>
+        
     )
 
 

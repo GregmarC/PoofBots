@@ -7,6 +7,8 @@ import Card from './Card';
 import QuickReplies from './QuickReplies';
 import QuickReply from './QuickReply';
 import { withRouter } from 'react-router-dom';
+import '../../App.css'; 
+import robot from '../../../src/images/robot.png'
 
 const cookies = new Cookies();
 
@@ -20,12 +22,8 @@ class Chatbot extends Component {
         this._handleInputKeyPress = this._handleInputKeyPress.bind(this);
         this._handleQuickReplyPayload = this._handleQuickReplyPayload.bind(this);
 
-        this.hide = this.hide.bind(this);
-        this.show = this.show.bind(this);
-
         this.state = {
             messages: [],
-            showBot: true,
             shopWelcomeSent: false,
             clientToken: false,
             regenerateToken: 0
@@ -126,9 +124,6 @@ class Chatbot extends Component {
                 }
                 this.setState({ messages: [...this.state.messages, says]});
                 let that = this;
-                setTimeout(function(){
-                    that.setState({ showBot: false})
-                }, 2000);
             }
         }
     }
@@ -166,18 +161,6 @@ class Chatbot extends Component {
         if ( this.talkInput ) {
             this.talkInput.focus();
         }
-    }
-
-    show(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        this.setState({showBot: true});
-    }
-
-    hide(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        this.setState({showBot: false});
     }
 
     _handleQuickReplyPayload(event, payload, text){
@@ -259,47 +242,38 @@ class Chatbot extends Component {
     }
     
     render() {
-        if (this.state.showBot) {
+        
             return (
-                <div style={{ height: 500, maxHeight: 470, width: 400, position: 'absolute', bottom: 0, right: 0, border: '1px solid lightgrey' }}>
-                    <nav>
-                        <div className="nav-wrapper">
-                            <a className="brand-logo">ChatBot</a>
-                            <ul id="nav-mobile" className="right hide-on-med-and-down">
-                                <li><a href="/" onClick={this.hide}>Close</a></li>
-                            </ul>
+                
+                <div style={{display:"flex", justifyContent:"center"}} className="container">
+                    <div className="container" style={{ height: "10%", width: "100%", border: '1px solid lightgrey', backgroundColor: "white", display: "block", marginTop: "20px" }}>
+                        <nav >
+                            <div className="row">
+                                                                  
+                                <div className="nav-wrapper red darken-3 z-depth-3">
+                                    <div className="col l1" style={{paddingTop: "10px"}}>
+                                        <img src={robot} alt="bot" className="circle responsive-img robotPic"/>
+                                    </div>  
+                                    <div style={{fontSize: "300%", textAlign: "center", paddingRight: "60px", fontFamily: "Roboto"}}>PoofBot</div>
+                                </div>
+                            </div>                               
+                        </nav>
+        
+                        <div id="chatbot" style={{ height: 388, width: '100%', overflow: 'auto'}}>
+                            {this.renderMessages(this.state.messages)}
+                            <div ref={(el) => { this.messagesEnd = el; }}                   
+                                style={{ float: 'left', clear: "both"}}>
+                            </div>
                         </div>
-                    </nav>
-    
-                    <div id="chatbot" style={{ height: 388, width: '100%', overflow: 'auto'}}>
-                        {this.renderMessages(this.state.messages)}
-                        <div ref={(el) => { this.messagesEnd = el; }}                   
-                            style={{ float: 'left', clear: "both"}}>
+                        <div className="col s12">
+                            <input id="messageBox" style={{margin: 0, paddingRight: '1%', width: '98%'}} placeholder="type a message" type="text" ref={(input) => {this.talkInput = input; }} onKeyPress={this._handleInputKeyPress}/>
                         </div>
                     </div>
-                    <div className="col s12">
-                        <input style={{margin: 0, paddingLeft: '1%', paddingRight: '1%', width: '98%'}} placeholder="type a message" type="text" ref={(input) => {this.talkInput = input; }} onKeyPress={this._handleInputKeyPress}/>
-                    </div>
                 </div>
-            )
-        }
-        else {
-            return (
-                <div style={{ height: 40, width: 400, position: 'absolute', bottom: 0, right: 0, border: '1px solid lightgrey' }}>
-                    <nav>
-                        <div className="nav-wrapper">
-                            <a className="brand-logo">ChatBot</a>
-                            <ul id="nav-mobile" className="right hide-on-med-and-down">
-                                <li><a href="/" onClick={this.show}>Show</a></li>
-                            </ul>
-                        </div>
-                    </nav>
-                        <div ref={(el) => { this.messagesEnd = el; }}                   
-                            style={{ float: 'left', clear: "both"}}>
-                        </div>
-                </div>
-            )
-        }
+            
+            
+        )
+        
         
     }
 } 

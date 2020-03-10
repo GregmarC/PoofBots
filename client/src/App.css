@@ -1,0 +1,17 @@
+.appContainer {
+    background-image: url("../src/images/poof.jpg");
+    background-position: center;
+    justify-content: "center";
+    height: 120vh;
+}
+
+#messageBox {
+    padding-left: 15px;
+}
+
+@media (max-width: 768px) {
+    .robotPic{
+        display: none;
+    }
+}
+
