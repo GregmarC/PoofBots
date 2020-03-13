@@ -9,9 +9,13 @@
     padding-left: 15px;
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 1000px) {
     .robotPic{
         display: none;
     }
+}
+
+input::placeholder{
+    color: rgb(218, 95, 95)
 }
 

@@ -251,7 +251,7 @@ class Chatbot extends Component {
                             <div className="row">
                                                                   
                                 <div className="nav-wrapper red darken-3 z-depth-3">
-                                    <div className="col l1" style={{paddingTop: "10px"}}>
+                                    <div className="col s12 l1" style={{paddingTop: "10px"}}>
                                         <img src={robot} alt="bot" className="circle responsive-img robotPic"/>
                                     </div>  
                                     <div style={{fontSize: "300%", textAlign: "center", paddingRight: "60px", fontFamily: "Roboto"}}>PoofBot</div>
