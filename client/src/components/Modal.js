@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import M from "materialize-css";
-
+import {auth} from '../firebase.js'
+import {db} from '../firebase.js';
 import '../App.css';
 
 class Modal extends Component {
@@ -103,7 +104,7 @@ class Modal extends Component {
             <a className="modal-close waves-effect waves-red btn-flat red-text" >
             Close
             </a>
-            <a className="modal-close waves-effect waves-green btn-flat red-text">
+            <a className="modal-close waves-effect waves-green btn-flat red-text" >
             Submit
             </a>
         </div>

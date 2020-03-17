@@ -1,9 +1,21 @@
 import React, { Component } from "react";
 import M from "materialize-css";
-
+import {auth} from '../firebase.js'
+import {db} from '../firebase.js';
 import '../App.css';
 
 class Modal2 extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            username2: "",
+            email2: "",
+            password2: ""
+        }
+
+    }
+
+
   componentDidMount() {
     const options = {
       onOpenStart: () => {
@@ -28,12 +40,39 @@ class Modal2 extends Component {
     M.Modal.init(this.Modal, options);
   }
 
+  handlesubmit = (event) => {
+    event.preventDefault();
+    const email = event.target.email2.value;
+    const password = event.target.password2.value;
+    auth.createUserWithEmailAndPassword(email, password)
+            .then(cred => {
+                const userId = this.state.username2;
+                console.log(cred);
+                const user = cred.user.email;
+                alert("Thank you! You have successfully created a PoofBot account!");
+                return db.collection('users').doc(cred.user.uid).set({
+                    email : cred.user.email,
+                    username : userId
+                });
+            }).catch((error) => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              // [START_EXCLUDE]
+              if (errorCode == 'auth/weak-password') {
+                  alert('The password is too weak.');
+              } else {
+                  alert(errorMessage);
+              }
+              // [END_EXCLUDE]
+            });
+  }
+
   render() {
     return (
       <>
         <a
           className="waves-effect waves-light btn modal-trigger"
-          data-target="modal1"
+          data-target="modal2"
         >
           Register
         </a>
@@ -42,41 +81,41 @@ class Modal2 extends Component {
           ref={Modal => {
             this.Modal = Modal;
           }}
-          id="modal1"
+          id="modal2"
           className="modal"
         >
         <div className="modal-content">
         <div className="row">
-            <form className="col s12">
+            <form onSubmit={this.handlesubmit} className="col s12">
                 <div class="row">
                     <div className="input-field col s12" style={{borderBottom: "1px solid", boxShadow: "0 5px 0 0"}}>
                     <i className="material-icons prefix" style={{color: "#E31C13"}}>account_circle</i>
-                    <input placeholder="Please Input Username" id="username" type="text" className="validate" />
+                    <input placeholder="Please Create A Username" id="username2" type="text" className="validate" onChange={e => this.setState({username2: e.currentTarget.value})}/>
                     </div>
                 </div>
                 <div className="row">
                     <div className="input-field col s12" style={{borderBottom: "1px solid", boxShadow: "0 5px 0 0"}}>
                     <i className="material-icons prefix" style={{color: "#E31C13"}}>email</i>
-                    <input placeholder="Please Input Email" id="email" type="email" className="validate" />
+                    <input placeholder="Please Input Email" id="email2" type="email" className="validate" onChange={e => this.setState({email2: e.currentTarget.value})}/>
                     </div>
                 </div>
                 <div className="row">
                     <div className="input-field col s12" style={{borderBottom: "1px solid", boxShadow: "0 5px 0 0"}}>
                     <i className="material-icons prefix" style={{color: "#E31C13"}}>vpn_key</i>
-                    <input placeholder="Please Input Password" id="password" type="password" className="validate" />
+                    <input placeholder="Please Create A Password" id="password2" type="password" className="validate" onChange={e => this.setState({password2: e.currentTarget.value})}/>
                     </div>
                 </div>
+                <div className="modal-footer">
+                  <button className="modal-close waves-effect waves-red btn white-text" >
+                  Close
+                  </button>
+                  <button style={{marginLeft: "30px"}} className="modal-close waves-effect waves-green btn white-text" type="submit" name="action" >
+                  Submit
+                  </button>
+              </div>
             </form>
         </div>
         </div>
-          <div className="modal-footer">
-            <a className="modal-close waves-effect waves-red btn-flat red-text">
-              Close
-            </a>
-            <a className="modal-close waves-effect waves-green btn-flat red-text">
-              Submit
-            </a>
-          </div>
         </div>
       </>
     );

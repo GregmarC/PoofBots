@@ -50,5 +50,29 @@
 
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="js/materialize.min.js"></script>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyD297p6vRVCMI1sV5jgcFbSukBg3qEI1k0",
+        authDomain: "poofbot-604cd.firebaseapp.com",
+        databaseURL: "https://poofbot-604cd.firebaseio.com",
+        projectId: "poofbot-604cd",
+        storageBucket: "poofbot-604cd.appspot.com",
+        messagingSenderId: "770219793050",
+        appId: "1:770219793050:web:375c9b5a64ab7936de5d23",
+        measurementId: "G-LYW9KQM0YS"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
   </body>
 </html>

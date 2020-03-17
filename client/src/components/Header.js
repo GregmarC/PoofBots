@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Modal from './Modal.js';
 import Modal2 from './Modal2.js';
 
+
 class Header extends Component {
 
     componentDidMount(){
