@@ -10,7 +10,8 @@ class Modal2 extends Component {
         this.state={
             username2: "",
             email2: "",
-            password2: ""
+            password2: "",
+            firebaseUserEmail2: ""
         }
 
     }
@@ -40,16 +41,18 @@ class Modal2 extends Component {
     M.Modal.init(this.Modal, options);
   }
 
-  handlesubmit = (event) => {
+  handleRegistration = (event) => {
     event.preventDefault();
     const email = event.target.email2.value;
     const password = event.target.password2.value;
+    event.target.reset();
     auth.createUserWithEmailAndPassword(email, password)
             .then(cred => {
                 const userId = this.state.username2;
                 console.log(cred);
                 const user = cred.user.email;
                 alert("Thank you! You have successfully created a PoofBot account!");
+                this.setState({firebaseUserEmail2: user});
                 return db.collection('users').doc(cred.user.uid).set({
                     email : cred.user.email,
                     username : userId
@@ -70,12 +73,11 @@ class Modal2 extends Component {
   render() {
     return (
       <>
-        <a
-          className="waves-effect waves-light btn modal-trigger"
-          data-target="modal2"
-        >
+
+        <a className="waves-effect waves-light btn modal-trigger" data-target="modal2">
           Register
         </a>
+        
 
         <div
           ref={Modal => {
@@ -86,7 +88,7 @@ class Modal2 extends Component {
         >
         <div className="modal-content">
         <div className="row">
-            <form onSubmit={this.handlesubmit} className="col s12">
+            <form onSubmit={this.handleRegistration} className="col s12">
                 <div class="row">
                     <div className="input-field col s12" style={{borderBottom: "1px solid", boxShadow: "0 5px 0 0"}}>
                     <i className="material-icons prefix" style={{color: "#E31C13"}}>account_circle</i>

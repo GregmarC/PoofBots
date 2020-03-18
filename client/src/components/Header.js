@@ -4,6 +4,7 @@ import "materialize-css/dist/css/materialize.min.css";
 import { Link } from 'react-router-dom';
 import Modal from './Modal.js';
 import Modal2 from './Modal2.js';
+import {auth} from '../firebase.js'
 
 
 class Header extends Component {
@@ -11,6 +12,12 @@ class Header extends Component {
     componentDidMount(){
         let sidenav = document.querySelector('#slide-out');
         M.Sidenav.init(sidenav, {});
+        this.getCurrentUser();
+    }
+
+    getCurrentUser = () => {
+        const user = auth.currentUser;
+        console.log(user);
     }
 
     render(){
