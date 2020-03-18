@@ -3,7 +3,7 @@ import React from 'react';
 const About = () => 
     (
         <div>
-            <h1>About us!</h1>
+            <h1 style={{paddingLeft: "30px"}}>About us!</h1>
         </div>
     )
 

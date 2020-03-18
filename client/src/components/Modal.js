@@ -72,9 +72,9 @@ class Modal extends Component {
             if (errorCode == 'auth/wrong-password') {
                 alert('Wrong password.');
             } else {
-                alert(errorMessage);
+              console.log(error);
             }
-            console.log(error);
+            
             // [END_EXCLUDE]
           });
       }

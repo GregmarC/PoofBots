@@ -12,12 +12,6 @@ class Header extends Component {
     componentDidMount(){
         let sidenav = document.querySelector('#slide-out');
         M.Sidenav.init(sidenav, {});
-        this.getCurrentUser();
-    }
-
-    getCurrentUser = () => {
-        const user = auth.currentUser;
-        console.log(user);
     }
 
     render(){

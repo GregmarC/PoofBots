@@ -64,7 +64,7 @@ class Modal2 extends Component {
               if (errorCode == 'auth/weak-password') {
                   alert('The password is too weak.');
               } else {
-                  alert(errorMessage);
+                console.log(error);
               }
               // [END_EXCLUDE]
             });
