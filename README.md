@@ -1,6 +1,6 @@
 # GregBots
 
-Developing a chatbot that will incorporate several other apps that I'm developing as well; primarily dealing with product comparison, selection, and purchase.
+Developing a chatbot through the use of React, Node.JS, DialogFlow, Express, and MongoDB Cloud, that will incorporate several other apps that I'm developing as well; primarily dealing with product comparison, selection, and purchase.
 
 https://infinite-sea-94371.herokuapp.com/
 <br>
