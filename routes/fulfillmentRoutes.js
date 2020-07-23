@@ -13,6 +13,10 @@ module.exports = app => {
             agent.add(`Welcome to my Snoopy fulfillment!`);
         }
 
+        function products(agent) {
+            agent.add(`Great! I will do my best to find you best the deals!`);
+        }
+
         async function registration(agent) {
 
             const registration = new Registration({
@@ -62,6 +66,7 @@ module.exports = app => {
         intentMap.set('learn courses', learn);
         intentMap.set('recommend courses - yes', registration);
         intentMap.set('Default Fallback Intent', fallback);
+        intentMap.set('Products', products);
         
 
         agent.handleRequest(intentMap);
