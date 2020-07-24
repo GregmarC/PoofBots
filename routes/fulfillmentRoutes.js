@@ -5,6 +5,68 @@ const Demand = mongoose.model('demand');
 const Coupon = mongoose.model('coupon');
 const Registration = mongoose.model('registration');
 
+const axios = require('axios');
+
+
+//Function from Poof API backend to retrieve search products
+async function getProducts(keywords){
+    console.log("Now fetching items.........")
+  
+    try{
+      let response = await axios({
+        method: 'post',
+        url: "https://us-central1-poofapibackend.cloudfunctions.net/search-bestprice",
+        headers: {
+          "Authorization": "Bearer b99d951c8ffb64135751b3d423badeafac9cfe1f54799c784619974c29e277ec",
+          "Accept" : "application/json",
+          "Content-Type" : "application/json",
+        },
+        data: {"keywords" : keywords},
+      })
+    
+      let items = await response.data;
+      console.log(items);
+      return items;
+  
+    }
+  
+    catch(err){
+      console.log("An error occurred in the getProducts function!!!!!: ", err);
+    }
+  }
+
+function firstFive(items){
+    let arr = [];
+    
+    for(let x = 0; x < 5; x++){
+        if(items.title){
+            arr.push(items.title);
+        }
+    }
+
+    return arr;
+}
+
+function firstFive(items){
+    let arr = [];
+    let counter = 5;
+    
+    for(let item of items){
+
+        if(item.title && counter > 0){
+            arr.push(item.title)
+        }
+
+        counter--;
+
+        if(counter <= 0){
+            break
+        }
+    }
+
+    return arr;
+}
+
 module.exports = app => {
     app.post('/', async (req, res) => {
         const agent = new WebhookClient({ request: req, response: res });
@@ -13,8 +75,29 @@ module.exports = app => {
             agent.add(`Welcome to my Snoopy fulfillment!`);
         }
 
-        function products(agent) {
-            agent.add(`Great! I will do my best to find you best the deals!`);
+        async function products(agent) {
+            
+            let item = agent.parameters.product;
+            
+            try{
+                let searchItems = await getProducts(item);
+                agent.add(`Here are the items I was able to find: `);
+
+
+                let titles = firstFive(searchItems.items);
+                // searchItems.items.map(item => {
+                //     agent.add(`${item.title}`)
+                // })
+
+                titles.map(title => {
+                    agent.add(`${title}`)
+                });
+
+            } 
+            catch(error){
+                console.log('An error occurred: ', error);
+            }
+
         }
 
         async function registration(agent) {
