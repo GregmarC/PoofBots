@@ -28,6 +28,53 @@ const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
 const Registration = mongoose.model('registration');
 
+//Function from Poof API backend to retrieve search products
+async function getProducts(keywords){
+    console.log("Now fetching items.........")
+  
+    try{
+      let response = await axios({
+        method: 'post',
+        url: "https://us-central1-poofapibackend.cloudfunctions.net/search-bestprice",
+        headers: {
+          "Authorization": "Bearer b99d951c8ffb64135751b3d423badeafac9cfe1f54799c784619974c29e277ec",
+          "Accept" : "application/json",
+          "Content-Type" : "application/json",
+        },
+        data: {"keywords" : keywords},
+      })
+    
+      let items = await response.data;
+      console.table(items.items, ["title"]);
+      return items;
+  
+    }
+  
+    catch(err){
+      console.log("An error occurred in the getProducts function!!!!!: ", err);
+    }
+  }
+
+function firstFive(items){
+    let arr = [];
+    let counter = 5;
+    
+    for(let item of items){
+
+        if(item.title && counter > 0){
+            arr.push(item.title)
+        }
+
+        counter--;
+
+        if(counter <= 0){
+            break
+        }
+    }
+
+    return arr;
+}
+
 module.exports = {
 
     getToken: async function(){
@@ -66,6 +113,7 @@ module.exports = {
             }
         };
         let responses = await sessionClient.detectIntent(request);
+        console.log("Backend port 5000: textQuery ", responses);
         responses = await self.handleAction(responses)
         return responses;
     },
@@ -87,11 +135,12 @@ module.exports = {
             }
         };
         let responses = await sessionClient.detectIntent(request);
+        console.log("Backend port 5000: eventQuery ", responses);
         responses = await self.handleAction(responses)
         return responses;
     },
 
-    handleAction: function(responses){
+    handleAction: async function(responses){
         let self = module.exports;
         let queryResult = responses[0].queryResult;
 
@@ -102,6 +151,21 @@ module.exports = {
                 }
 
                 break;
+        }
+
+        if(queryResult.allRequiredParamsPresent && queryResult.intent.displayName == "Products"){
+            console.log("test backend chatbot");
+
+            let item = queryResult.parameters.product;
+
+            try{
+                let items = await getProducts(item);
+                return items;
+            }
+
+            catch(error){
+                console.log(error);
+            }
         }
 
         return responses;

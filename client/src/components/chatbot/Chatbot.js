@@ -4,6 +4,7 @@ import Message from './Message';
 import Cookies from 'universal-cookie';
 import { v4 as uuid } from 'uuid';
 import Card from './Card';
+import Card2 from './Card2';
 import QuickReplies from './QuickReplies';
 import QuickReply from './QuickReply';
 import { withRouter } from 'react-router-dom';
@@ -161,6 +162,8 @@ class Chatbot extends Component {
         if ( this.talkInput ) {
             this.talkInput.focus();
         }
+
+        console.log(this.state.messages);
     }
 
     _handleQuickReplyPayload(event, payload, text){
@@ -185,8 +188,12 @@ class Chatbot extends Component {
     }
 
     renderOneMessage(message, i) {
+        console.log(message);
         if (message.msg && message.msg.text && message.msg.text.text) {
             return <Message key={i} speaks={message.speaks} text={message.msg.text.text} />;
+        }
+        else if (message.msg && message.msg.card){
+            return <Card2 key={i} payload={message.msg.card}/>
         }
         else if (message.msg
             && message.msg.payload

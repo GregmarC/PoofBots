@@ -1,4 +1,4 @@
-const {WebhookClient} = require('dialogflow-fulfillment');
+const {WebhookClient, Card} = require('dialogflow-fulfillment');
 
 const mongoose = require('mongoose');
 const Demand = mongoose.model('demand');
@@ -25,7 +25,7 @@ async function getProducts(keywords){
       })
     
       let items = await response.data;
-      console.log(items);
+      console.table(items.items, ["title"]);
       return items;
   
     }
@@ -34,18 +34,6 @@ async function getProducts(keywords){
       console.log("An error occurred in the getProducts function!!!!!: ", err);
     }
   }
-
-function firstFive(items){
-    let arr = [];
-    
-    for(let x = 0; x < 5; x++){
-        if(items.title){
-            arr.push(items.title);
-        }
-    }
-
-    return arr;
-}
 
 function firstFive(items){
     let arr = [];
@@ -78,20 +66,45 @@ module.exports = app => {
         async function products(agent) {
             
             let item = agent.parameters.product;
+
+            // agent.add("Here are the items I was able to find: fullfillmentRoute");
+            function formatCardItem(title,image,text,buttonText,buttonUrl){
+                let item = {
+                  title : title,
+                  imageUrl : image,
+                  text : text,
+                  buttonText : buttonText,
+                  buttonUrl : buttonUrl
+                }
+                return item
+              }
+              
+            function AddCard(item, agent){
+                agent.add(new Card(item));
+            }
             
             try{
+
                 let searchItems = await getProducts(item);
                 agent.add(`Here are the items I was able to find: `);
 
 
-                let titles = firstFive(searchItems.items);
+                // let titles = firstFive(searchItems.items);
                 // searchItems.items.map(item => {
                 //     agent.add(`${item.title}`)
                 // })
 
-                titles.map(title => {
-                    agent.add(`${title}`)
-                });
+                // titles.map(title => {
+                //     agent.add(`${title}`)
+                // });
+
+                let items = searchItems.items;
+
+                console.log(items);
+
+                let cards = items.map(item => formatCardItem(item.title, item.image));
+
+                cards.map(card => AddCard(card, agent));
 
             } 
             catch(error){
