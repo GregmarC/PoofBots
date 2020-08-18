@@ -170,6 +170,8 @@ module.exports = app => {
 
                 let modifiedItems = limitItems(items, userNum);
 
+                console.log(modifiedItems);
+
                 if(modifiedItems){
                     let cards = modifiedItems.map(item => formatCardItem(item.title, item.image));
                     cards.map(card => AddCard(card, agent));

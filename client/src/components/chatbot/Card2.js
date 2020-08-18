@@ -1,12 +1,13 @@
 import React from 'react';
+import './clientChatBot.css';
 
 const Card2 = (props) => {
     return(
-        <div style={{float: 'left', paddingRight: 30, width: 270}}>
-            <div className="card">
-                <div className="card-image" style={{ width: 240 }}>
+        <div style={{float: 'left', paddingRight: 30, width: 270, marginLeft: "1vw"}}>
+            <div className="poofCard card">
+                <div className="poofCardImage card-image" style={{ width: 240 }}>
                     <img alt={props.payload.header} src={props.payload.imageUri} />
-                    <span className="card-title">{props.payload.title}</span>
+                    <span className="poofProductTitle card-title">{props.payload.title}</span>
                 </div>
                 {/* <div className="card-content">
                     {props.payload.description}

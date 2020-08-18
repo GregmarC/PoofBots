@@ -1,0 +1,28 @@
+/*client chatbot styling*/
+
+.poofCard {
+    height: 23.5rem !important;
+    display: flex;
+    justify-content: center;
+}
+
+.poofCardImage {
+    display: flex;
+    width: 240px;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 60% !important;
+}
+
+.poofProductTitle {
+    display: flex;
+    position: relative !important;
+    color: black !important;
+    text-align: center;
+    justify-content: center;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    overflow: hidden;
+    max-height: 95px;
+}
