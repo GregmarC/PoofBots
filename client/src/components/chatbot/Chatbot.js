@@ -205,7 +205,7 @@ class Chatbot extends Component {
                         <div className="col s2">
                             <a className="btn-floating btn-large waves-effect waves-light red">{message.speaks}</a>
                         </div>
-                        <div style={{overflow: 'auto', overflowY: 'scroll'}}>
+                        <div style={{overflowX: 'scroll', overflowY: 'scroll'}}>
                             <div style={{ height: 300, width:message.msg.payload.cards.length * 270}}>
                                 {this.renderCards(message.msg.payload.cards)}
                             </div>

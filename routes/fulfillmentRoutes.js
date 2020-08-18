@@ -5,12 +5,25 @@ const Demand = mongoose.model('demand');
 const Coupon = mongoose.model('coupon');
 const Registration = mongoose.model('registration');
 
+const express = require('express');
+const app = express();
 const axios = require('axios');
+const bodyParser = require('body-parser')
+
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+)
+
+app.use(bodyParser.json())
+
+const { request } = require('express');
 
 
 //Function from Poof API backend to retrieve search products
 async function getProducts(keywords){
-    console.log("Now fetching items.........")
+    console.log("getProducts function was now called....")
   
     try{
       let response = await axios({
@@ -25,7 +38,6 @@ async function getProducts(keywords){
       })
     
       let items = await response.data;
-      console.table(items.items, ["title"]);
       return items;
   
     }
@@ -67,7 +79,46 @@ module.exports = app => {
             
             let item = agent.parameters.product;
 
-            // agent.add("Here are the items I was able to find: fullfillmentRoute");
+            function resolveAfter3Seconds() {
+                return new Promise(resolve => {
+                  setTimeout(() => {
+                    resolve('resolved');
+                  }, 3000);
+                });
+              }
+            
+            try{
+
+                let searchItems = getProducts(item);
+                
+            
+                console.log('waiting for 4 seconds......');
+                const result = await resolveAfter3Seconds();
+                console.log('done waiting....');
+                agent.add("got to product intent");
+                agent.setFollowupEvent({ "name": "ITEM_DISPLAY", "parameters" : { "searchedItem": `${item}`}});
+                 
+                // let titles = firstFive(searchItems.items);
+                // searchItems.items.map(item => {
+                //     agent.add(`${item.title}`)
+                // })
+
+                // titles.map(title => {
+                //     agent.add(`${title}`)
+                // })
+            } 
+            catch(error){
+                console.log('An error occurred: ', error);
+            }
+
+        }
+
+        async function search(agent) {
+
+            console.log(`search intent REQUEST: ${req.body.queryResult.outputContexts[0].parameters.product}`);
+            
+            let item = `${req.body.queryResult.outputContexts[0].parameters.product}`;
+
             function formatCardItem(title,image,text,buttonText,buttonUrl){
                 let item = {
                   title : title,
@@ -82,11 +133,24 @@ module.exports = app => {
             function AddCard(item, agent){
                 agent.add(new Card(item));
             }
+
+            limitItems = (elements, limit) => {
+
+                let limitedItems = [];
+
+                for(let j = 0; j < limit; j++){
+                    limitedItems.push(elements[j]);
+                }
+
+                return limitedItems;
+            }
+
+            let userNum = agent.parameters.number;
             
             try{
 
                 let searchItems = await getProducts(item);
-                agent.add(`Here are the items I was able to find: `);
+                
 
 
                 // let titles = firstFive(searchItems.items);
@@ -100,15 +164,21 @@ module.exports = app => {
 
                 let items = searchItems.items;
 
-                console.log(items);
+                console.log("Number of items user requested to display: ", userNum);
+                console.log("Total number of items found: ", items.length);
+                agent.add(`Here are your items (searchIntent): `);
 
-                let cards = items.map(item => formatCardItem(item.title, item.image));
+                let modifiedItems = limitItems(items, userNum);
 
-                cards.map(card => AddCard(card, agent));
+                if(modifiedItems){
+                    let cards = modifiedItems.map(item => formatCardItem(item.title, item.image));
+                    cards.map(card => AddCard(card, agent));
+                }
+
 
             } 
             catch(error){
-                console.log('An error occurred: ', error);
+                console.log('An error occurred with Search Intent: ', error);
             }
 
         }
@@ -163,6 +233,7 @@ module.exports = app => {
         intentMap.set('recommend courses - yes', registration);
         intentMap.set('Default Fallback Intent', fallback);
         intentMap.set('Products', products);
+        intentMap.set('Search', search);
         
 
         agent.handleRequest(intentMap);
