@@ -1,5 +1,6 @@
 import React from 'react';
 import './clientChatBot.css';
+import amazonLogo from './images/amazonLogo.png';
 
 const Card2 = (props) => {
     return(
@@ -8,6 +9,14 @@ const Card2 = (props) => {
                 <div className="poofCardImage card-image" style={{ width: 240 }}>
                     <img alt={props.payload.header} src={props.payload.imageUri} />
                     <span className="poofProductTitle card-title">{props.payload.title}</span>
+                    <div style={{width: "55%", marginLeft: "5px"}}>
+                        <a href={`${props.payload.buttons[0].postback}`}  target="_blank"><img className="img-fluid" src={amazonLogo} alt={props.payload.buttons[0].text}/></a>
+                    </div>
+                </div>
+                <div className="priceContainer">
+                    <div className="poofPrice">
+                        <div className="poofPrice2">{`$${props.payload.subtitle}`}</div>
+                    </div>
                 </div>
                 {/* <div className="card-content">
                     {props.payload.description}

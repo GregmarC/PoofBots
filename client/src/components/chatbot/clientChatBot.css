@@ -26,3 +26,26 @@
     overflow: hidden;
     max-height: 95px;
 }
+
+.priceAndLogoContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.poofPrice {
+    color: white;
+    font-weight: 700;
+    position: absolute;
+    bottom: 120px;
+    right: 8px;
+}
+
+.poofPrice2 {
+    border: solid;
+    border-radius: 30px;
+    padding: 10px 13px;
+    background: red;
+}
+
