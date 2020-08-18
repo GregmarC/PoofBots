@@ -5,8 +5,28 @@
     height: 120vh;
 }
 
+.chatbotContainer {
+    position: relative;
+    top: 10px;
+}
+
 #messageBox {
     padding-left: 15px;
+}
+
+.userMessageInput {
+    top: 10px;
+    position: relative;
+    margin: 0px;
+    padding-right: 1%;
+    width: 95%;
+    height: 10vh !important;
+    border-bottom: none !important;
+}
+
+.userMessageInput:focus {
+    border-bottom: none !important;
+    box-shadow: none !important;
 }
 
 @media screen and (max-width: 1000px) {

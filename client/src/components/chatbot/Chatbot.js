@@ -266,14 +266,14 @@ class Chatbot extends Component {
                             </div>                               
                         </nav>
         
-                        <div id="chatbot" style={{ height: 388, width: '100%', overflow: 'auto'}}>
+                        <div className="chatbotContainer" id="chatbot" style={{ height: 388, width: '100%', overflow: 'auto'}}>
                             {this.renderMessages(this.state.messages)}
                             <div ref={(el) => { this.messagesEnd = el; }}                   
                                 style={{ float: 'left', clear: "both"}}>
                             </div>
                         </div>
                         <div className="col s12">
-                            <input id="messageBox" style={{margin: 0, paddingRight: '1%', width: '98%'}} placeholder="type a message" type="text" ref={(input) => {this.talkInput = input; }} onKeyPress={this._handleInputKeyPress}/>
+                            <input className="userMessageInput" id="messageBox" style={{margin: 0, paddingRight: '1%', width: '95%'}} placeholder="type a message" type="text" ref={(input) => {this.talkInput = input; }} onKeyPress={this._handleInputKeyPress}/>
                         </div>
                     </div>
                 </div>

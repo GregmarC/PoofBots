@@ -9,7 +9,7 @@ const Card2 = (props) => {
                 <div className="poofCardImage card-image" style={{ width: 240 }}>
                     <img alt={props.payload.header} src={props.payload.imageUri} />
                     <span className="poofProductTitle card-title">{props.payload.title}</span>
-                    <div style={{width: "55%", marginLeft: "5px"}}>
+                    <div style={{width: "55%"}}>
                         <a href={`${props.payload.buttons[0].postback}`}  target="_blank"><img className="img-fluid" src={amazonLogo} alt={props.payload.buttons[0].text}/></a>
                     </div>
                 </div>
