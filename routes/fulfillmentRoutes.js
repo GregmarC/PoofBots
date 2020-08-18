@@ -173,7 +173,7 @@ module.exports = app => {
                 console.log(modifiedItems);
 
                 if(modifiedItems){
-                    let cards = modifiedItems.map(item => formatCardItem(item.title, item.image, item.price, item.source, item.link));
+                    let cards = modifiedItems.map(item => formatCardItem(item.title, item.image, `${item.price}`, item.source, item.link));
                     cards.map(card => AddCard(card, agent));
                 }
 
