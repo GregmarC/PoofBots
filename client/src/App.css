@@ -9,7 +9,7 @@
 .chatbotContainer {
     position: relative;
     top: 10px;
-    height: 35vh;
+    height: 45vh;
     width: 100%;
     overflow: auto;
 }

@@ -177,6 +177,9 @@ class Chatbot extends Component {
             case 'training_masterclass':
                 this.df_event_query('MASTERCLASS');
                 break;
+            case 'search_yes':
+                this.df_event_query('SEARCH_WEB');
+                break;
             default:
                 this.df_text_query(text);
                 break;
