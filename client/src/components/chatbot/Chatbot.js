@@ -180,6 +180,9 @@ class Chatbot extends Component {
             case 'search_yes':
                 this.df_event_query('SEARCH_WEB');
                 break;
+            case 'search_no':
+                this.df_event_query('NO_SEARCH_WEB');
+                break;
             default:
                 this.df_text_query(text);
                 break;
