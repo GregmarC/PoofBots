@@ -266,7 +266,7 @@ class Chatbot extends Component {
                             </div>                               
                         </nav>
         
-                        <div className="chatbotContainer" id="chatbot" style={{ height: 388, width: '100%', overflow: 'auto'}}>
+                        <div className="chatbotContainer" id="chatbot" style={{ width: '100%', overflow: 'auto'}}>
                             {this.renderMessages(this.state.messages)}
                             <div ref={(el) => { this.messagesEnd = el; }}                   
                                 style={{ float: 'left', clear: "both"}}>

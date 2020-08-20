@@ -1,13 +1,17 @@
 .appContainer {
     background-image: url("../src/images/poof.jpg");
     background-position: center;
-    justify-content: "center";
-    height: 120vh;
+    justify-content: center;
+    height: 100vh;
+    overflow: auto;
 }
 
 .chatbotContainer {
     position: relative;
     top: 10px;
+    height: 35vh;
+    width: 100%;
+    overflow: auto;
 }
 
 #messageBox {
@@ -27,6 +31,14 @@
 .userMessageInput:focus {
     border-bottom: none !important;
     box-shadow: none !important;
+}
+
+.robotPic {
+    width: 8vw;
+}
+
+.robotHomePic {
+    width: 15vw;
 }
 
 @media screen and (max-width: 1000px) {

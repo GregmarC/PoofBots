@@ -4,8 +4,8 @@ import '../../App.css';
 
 const Landing = () => 
     (
-        <div className="row">
-                <div className="col s6 offset-s3 l2 offset-l5" style={{paddingTop: "20px"}}>
+        <div className="row" style={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "25px"}}>
+                <div className="col s4 m2 l2" style={{marginLeft: "unset", display: "flex", justifyContent: "center", alignItems: "center"}}>
                     <img src={robot} alt="bot" className="circle responsive-img robotHomePic"/>
                 </div>  
         </div>
