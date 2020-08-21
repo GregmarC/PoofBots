@@ -3,16 +3,28 @@
 .poofCard {
     height: 23.5rem !important;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 38vw;
+}
+
+.productCard2 {
+    margin-left: 1vw;
+    display: flex;
     justify-content: center;
+}
+
+.logoImg {
+    width: 100%;
 }
 
 .poofCardImage {
     display: flex;
-    width: 240px;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    width: 60% !important;
+    margin-left: 5vw !important;
+    height: 100%;
 }
 
 .poofProductTitle {
@@ -24,7 +36,8 @@
     font-size: 15px !important;
     font-weight: 600 !important;
     overflow: hidden;
-    max-height: 95px;
+    max-height: 90px;
+    top: 25px;
 }
 
 .priceAndLogoContainer {
@@ -34,12 +47,33 @@
     margin-top: 4px;
 }
 
+.cardContentContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: unset !important;
+    height: 100%;
+}
+
 .poofPrice {
     color: white;
     font-weight: 700;
     position: absolute;
     bottom: 120px;
     right: 8px;
+}
+
+.poofPrice3 {
+    font-weight: 700;
+    font-size: 2rem;
+    color: red;
+}
+
+.sourceLogoImg {
+    width: 8vw;
+    position: relative;
+    bottom: 25px;
 }
 
 .poofPrice2 {

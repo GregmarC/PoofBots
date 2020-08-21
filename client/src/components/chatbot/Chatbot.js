@@ -193,13 +193,28 @@ class Chatbot extends Component {
         return cards.map((card, i) => <Card key={i} payload={card}/>);
     }
 
+    renderCard2(card) {
+        return <Card2 payload={card}/>
+    }
+
     renderOneMessage(message, i) {
         console.log(message);
         if (message.msg && message.msg.text && message.msg.text.text) {
             return <Message key={i} speaks={message.speaks} text={message.msg.text.text} />;
         }
         else if (message.msg && message.msg.card){
-            return <Card2 key={i} payload={message.msg.card}/>
+            return <div>
+            <div className="card-panel grey lighten-5 z-depth-1">
+                <div style={{overflow: 'hidden'}}>
+                    <div className="col s2">
+                        <a className="btn-floating btn-large waves-effect waves-light red">{message.speaks}</a>
+                    </div>
+                    <div>
+                        {this.renderCard2(message.msg.card)}
+                    </div>
+                </div>
+            </div>
+        </div>
         }
         else if (message.msg
             && message.msg.payload
