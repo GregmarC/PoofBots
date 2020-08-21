@@ -166,7 +166,7 @@ module.exports = app => {
 
                 console.log("Number of items user requested to display: ", userNum);
                 console.log("Total number of items found: ", items.length);
-                agent.add(`Here are the items I found using the keyword(s) "${item}." Also, if you'd like me to search for anything else just type "product" or "search"`);
+                agent.add(`Here are the items I found using the keyword(s) "${item}." Also, if you'd like me to search for anything else just type "product" or "search."`);
 
                 let modifiedItems = limitItems(items, userNum);
 
