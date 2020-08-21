@@ -1,12 +1,18 @@
 /*client chatbot styling*/
 
 .poofCard {
-    height: 23.5rem !important;
+    height: 17.5rem !important;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 38vw;
+    width: 58vw;
     border-radius: 18px !important;
+}
+
+@media screen and (max-width: 992px) {
+    .chatBotTitle{
+        padding-left: 57px;
+    }
 }
 
 .productCard2 {
@@ -25,7 +31,17 @@
     flex-direction: column;
     align-items: center;
     margin-left: 5vw !important;
-    max-height: 90%;
+    max-height: 83%;
+}
+
+.poofCardImage2 {
+    max-width: 80%;
+}
+
+@media screen and (max-width: 900px) {
+    .poofCardImage2 {
+        max-width: 100%;
+    }
 }
 
 .poofProductTitle {
@@ -67,7 +83,7 @@
 
 .poofPrice3 {
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: red;
 }
 

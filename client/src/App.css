@@ -6,6 +6,12 @@
     overflow: auto;
 }
 
+.poofWhiteLogo {
+    width: 10vw;
+    position: relative;
+    top: 5px;
+}
+
 .chatbotContainer {
     position: relative;
     top: 10px;

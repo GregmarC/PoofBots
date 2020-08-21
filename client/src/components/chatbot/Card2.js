@@ -7,7 +7,7 @@ const Card2 = (props) => {
         <div className="productCard2" style={{marginLeft: "1vw"}}>
             <div className="poofCard card row">
                 <div className="poofCardImage card-image col l4">
-                    <img alt={props.payload.header} src={props.payload.imageUri} />
+                    <img className="poofCardImage2" alt={props.payload.header} src={props.payload.imageUri} />
                 </div>
                 <div className="cardContentContainer col l4">
                     <div className="poofProductTitle">{props.payload.title}</div>
