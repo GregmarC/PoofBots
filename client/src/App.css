@@ -12,6 +12,12 @@
     top: 5px;
 }
 
+@media screen and (max-width: 992px) {
+    .poofWhiteLogo {
+        width: 20vw;
+    }
+}
+
 .chatbotContainer {
     position: relative;
     top: 10px;
